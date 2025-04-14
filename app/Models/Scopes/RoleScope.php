@@ -19,7 +19,7 @@ class RoleScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        $category = Taxonomy::whereSlug(Role::$rootSlug)->first();
-        $builder->whereIn('parent_id', $category->id);
+        $role = Taxonomy::whereSlug(Role::$rootSlug)->first();
+        $builder->where('parent_id', $role->id);
     }
 }

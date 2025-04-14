@@ -63,6 +63,6 @@ trait BaseTrait
      */
     public function find(string $field, string $value)
     {
-        return $this->model->where($field, $value);
+        return $this->model->where($field, $value)->first();
     }
 }

@@ -29,7 +29,7 @@ class Document extends Base
     /**
      * @var string
      */
-    protected $table = 'inv_media';
+    protected $table = 'md_documents';
 
     /**
      * @var array

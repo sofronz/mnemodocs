@@ -20,6 +20,6 @@ class CategoryScope implements Scope
     public function apply(Builder $builder, Model $model): void
     {
         $category = Taxonomy::whereSlug(Category::$rootSlug)->first();
-        $builder->whereIn('parent_id', $category->id);
+        $builder->where('parent_id', $category->id);
     }
 }

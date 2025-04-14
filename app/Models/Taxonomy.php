@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 
-use Illuminate\Support\Str;
+use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -20,12 +20,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Taxonomy extends Base
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, NodeTrait;
     
     /**
      * @var string
      */
-    protected $table = 'inv_taxonomies';
+    protected $table = 'md_taxonomies';
 
     /**
      * @var array
@@ -44,20 +44,4 @@ class Taxonomy extends Base
     protected $casts = [
         'metadata' => 'object',
     ];
-
-    /**
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->slug = Str::slug($model->name);
-        });
-
-        static::updating(function ($model) {
-            $model->slug = Str::slug($model->name);
-        });
-    }
 }
