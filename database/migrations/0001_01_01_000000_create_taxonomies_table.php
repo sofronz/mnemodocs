@@ -18,7 +18,9 @@ return new class extends Migration {
             $table->boolean('status')->default(true);
             $table->json('metadata')->nullable();
 
-            $table->nestedSet();
+            $table->uuid('parent_id')->nullable()->index();
+            $table->unsignedInteger('_lft')->nullable();
+            $table->unsignedInteger('_rgt')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
