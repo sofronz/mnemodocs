@@ -1,100 +1,79 @@
 <script setup>
-import Checkbox from '@/Components/Checkbox.vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { useForm, Head, Link } from '@inertiajs/vue3'
+import { mdiAccount, mdiAsterisk } from '@mdi/js'
+import LayoutGuest from '@/Layouts/LayoutGuest.vue'
+import SectionFullScreen from '@/Components/SectionFullScreen.vue'
+import CardBox from '@/Components/CardBox.vue'
+import FormCheckRadioGroup from '@/Components/FormCheckRadioGroup.vue'
+import FormField from '@/Components/FormField.vue'
+import FormControl from '@/Components/FormControl.vue'
+import BaseDivider from '@/Components/BaseDivider.vue'
+import BaseButton from '@/Components/BaseButton.vue'
+import BaseButtons from '@/Components/BaseButtons.vue'
+import FormValidationErrors from '@/Components/FormValidationErrors.vue'
+import NotificationBarInCard from '@/Components/NotificationBarInCard.vue'
+import BaseLevel from '@/Components/BaseLevel.vue'
 
-defineProps({
-    canResetPassword: {
-        type: Boolean,
-    },
-    status: {
-        type: String,
-    },
-});
+const props = defineProps({
+  canResetPassword: Boolean,
+  status: {
+    type: String,
+    default: null
+  }
+})
 
 const form = useForm({
-    email: '',
-    password: '',
-    remember: false,
-});
+  email: '',
+  password: '',
+  remember: []
+})
 
 const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
-    });
-};
+  form
+    .transform(data => ({
+      ...data,
+      remember: form.remember && form.remember.length ? 'on' : ''
+    }))
+    .post(route('login'), {
+      onFinish: () => form.reset('password'),
+    })
+}
 </script>
 
 <template>
-    <GuestLayout>
-        <Head title="Log in" />
-
-        <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
-            {{ status }}
-        </div>
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="current-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="mt-4 block">
-                <label class="flex items-center">
-                    <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ms-2 text-sm text-gray-600"
-                        >Remember me</span
-                    >
-                </label>
-            </div>
-
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                    Forgot your password?
-                </Link>
-
-                <PrimaryButton
-                    class="ms-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Log in
-                </PrimaryButton>
-            </div>
-        </form>
-    </GuestLayout>
+  <LayoutGuest>
+  
+    <Head title="Login" />
+  
+    <SectionFullScreen v-slot="{ cardClass }" bg="purplePink">
+      <CardBox :class="cardClass" is-form @submit.prevent="submit">
+        <FormValidationErrors />
+  
+        <NotificationBarInCard v-if="status" color="info">
+          {{ status }}
+        </NotificationBarInCard>
+  
+        <FormField label="Email" label-for="email" help="Please enter your email">
+          <FormControl v-model="form.email" :icon="mdiAccount" id="email" autocomplete="email" type="email" required />
+        </FormField>
+  
+        <FormField label="Password" label-for="password" help="Please enter your password">
+          <FormControl v-model="form.password" :icon="mdiAsterisk" type="password" id="password"
+            autocomplete="current-password" required />
+        </FormField>
+  
+        <FormCheckRadioGroup v-model="form.remember" name="remember" :options="{ remember: 'Remember' }" />
+  
+        <BaseDivider />
+  
+        <BaseLevel>
+          <BaseButtons>
+            <BaseButton type="submit" color="info" label="Login" :class="{ 'opacity-25': form.processing }"
+              :disabled="form.processing" />
+            <BaseButton v-if="canResetPassword" route-name="password.request" color="info" outline label="Remind" />
+          </BaseButtons>
+        </BaseLevel>
+      </CardBox>
+    </SectionFullScreen>
+  </LayoutGuest>
 </template>
