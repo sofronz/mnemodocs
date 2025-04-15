@@ -33,7 +33,7 @@ export default function menuAside(isAdmin) {
       icon: mdiFileDocumentCheckOutline,
     },
     {
-      route: 'dashboard',
+      route: 'categories.index',
       label: 'Categories',
       icon: mdiPalette,
     },

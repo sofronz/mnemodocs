@@ -2,7 +2,6 @@
 namespace Database\Seeders;
 
 use App\Models\Taxonomy;
-use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 
@@ -18,11 +17,17 @@ class TaxonomiesTableSeeder extends Seeder
             'children' => [
                 [
                     'name' => 'User',
+                    'slug' => 'roles-user',
                 ],
                 [
                     'name' => 'Administrator',
+                    'slug' => 'roles-administrator',
                 ],
             ],
+        ],
+        [
+            'name'     => 'Categories',
+            'slug'     => 'categories',
         ],
     ];
 
@@ -32,22 +37,31 @@ class TaxonomiesTableSeeder extends Seeder
     public function run(): void
     {
         Schema::disableForeignKeyConstraints();
-        Taxonomy::truncate();
 
         foreach ($this->categories as $key => $value) {
-            $children = $value['children'] ?? [];
-            
-            unset($value['children']);
-            $taxonomy = Taxonomy::create($value);
+            $taxonomy = Taxonomy::updateOrCreate(
+                [
+                    'slug' => $value['slug'],
+                ],
+                [
+                    'name' => $value['name'],
+                    'slug' => $value['slug'],
+                ],
+            );
 
-            foreach ($children as $key => $child) {
-                Taxonomy::create(array_merge(
-                    [
-                        'parent_id' => $taxonomy->id,
-                        'slug'      => $taxonomy->slug . '-' . Str::slug($child['name']),
-                    ],
-                    $child
-                ));
+            if (array_key_exists('children', $value)) {
+                foreach ($value['children'] as $key => $child) {
+                    Taxonomy::updateOrCreate(
+                        [
+                            'slug' => $child['slug'],
+                        ],
+                        [
+                            'name'      => $child['name'],
+                            'slug'      => $child['slug'],
+                            'parent_id' => $taxonomy->id,
+                        ],
+                    );
+                }
             }
         }
     }
