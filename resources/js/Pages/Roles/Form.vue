@@ -11,6 +11,7 @@ import BaseButtons from '@/Components/BaseButtons.vue'
 import SectionTitleLineWithButton from '@/Components/SectionTitleLineWithButton.vue'
 import LayoutAuthenticated from '@/Layouts/LayoutAuthenticated.vue'
 import FormCheckRadioGroup from '@/Components/FormCheckRadioGroup.vue'
+import TableAudits from '@/Components/TableAudits.vue'
 import { useForm, Head } from "@inertiajs/vue3";
 
 const props = defineProps({
@@ -43,46 +44,41 @@ const submit = () => {
 </script>
 
 <template>
-    <LayoutAuthenticated>
-        <Head :title="isEdit ? 'Edit Role' : 'Create Role'" />
-        <SectionMain>
-            <SectionTitleLineWithButton 
-                :icon="mdiViewList" 
-                :title="isEdit ? 'Edit Role' : 'Create Role'"
-                :show-button="false" 
-                main 
-            />
-            <form @submit.prevent="submit">
-                <CardBox>
-                    <FormField label="Name" :help="props.errors?.name ? props.errors?.name : ''">
-                        <FormControl v-model="form.name" placeholder="Enter the name" />
-                        <FormCheckRadioGroup 
-                            v-model="form.status" 
-                            name="status-switch" 
-                            type="switch" 
-                            :options="{ active: 'Active' }" 
-                        />
-                    </FormField>
-
-                    <BaseDivider />
-
-                    <FormField label="Description" :help="props.errors?.description ? props.errors?.description : ''">
-                        <FormControl 
-                            type="textarea" 
-                            v-model="form.description" 
-                            placeholder="Enter the description" 
-                        />
-                    </FormField>
-
-                    <template #footer>
-                        <BaseButtons>
-                            <!-- <button type="submit">Submit</button> -->
-                            <BaseButton type="submit" color="info" label="Submit" />
-                            <BaseButton type="reset" color="info" outline label="Reset" />
-                        </BaseButtons>
-                    </template>
-                </CardBox>
-            </form>
-        </SectionMain>
-    </LayoutAuthenticated>
+  <LayoutAuthenticated>
+  
+    <Head :title="isEdit ? 'Edit Role' : 'Create Role'" />
+    <SectionMain>
+      <SectionTitleLineWithButton :icon="mdiViewList" :title="isEdit ? 'Edit Role' : 'Create Role'" :show-button="false"
+        main />
+      <form @submit.prevent="submit">
+        <CardBox>
+          <FormField label="Name" :help="props.errors?.name ? props.errors?.name : ''">
+            <FormControl v-model="form.name" placeholder="Enter the name" />
+            <FormCheckRadioGroup v-model="form.status" name="status-switch" type="switch"
+              :options="{ active: 'Active' }" />
+          </FormField>
+  
+          <BaseDivider />
+  
+          <FormField label="Description" :help="props.errors?.description ? props.errors?.description : ''">
+            <FormControl type="textarea" v-model="form.description" placeholder="Enter the description" />
+          </FormField>
+  
+          <template #footer>
+            <BaseButtons>
+              <!-- <button type="submit">Submit</button> -->
+              <BaseButton type="submit" color="info" label="Submit" />
+              <BaseButton type="reset" color="info" outline label="Reset" />
+            </BaseButtons>
+          </template>
+        </CardBox>
+      </form>
+  
+      <template v-if="isEdit">
+        <CardBox class="mt-6" has-table>
+          <TableAudits />
+        </CardBox>
+      </template>
+    </SectionMain>
+  </LayoutAuthenticated>
 </template>

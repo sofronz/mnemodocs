@@ -3,7 +3,6 @@ import { computed, ref } from 'vue'
 import { usePage, router } from '@inertiajs/vue3'
 import { mdiSquareEditOutline, mdiTrashCan } from '@mdi/js'
 import CardBoxModal from '@/Components/CardBoxModal.vue'
-import TableCheckboxCell from '@/Components/TableCheckboxCell.vue'
 import BaseLevel from '@/Components/BaseLevel.vue'
 import BaseButtons from '@/Components/BaseButtons.vue'
 import BaseButton from '@/Components/BaseButton.vue'
@@ -20,15 +19,7 @@ const selectedRole = ref(null)
 const roles = computed(() => page.props.roles.data) // <-- ambil isi data paginasi
 const pagination = computed(() => page.props.roles.meta) // semua info paginasi
 
-const isModalActive = ref(false)
 const isModalDangerActive = ref(false)
-const checkedRows = ref([])
-
-const remove = (arr, cb) => arr.filter(item => !cb(item))
-const checked = (isChecked, role) => {
-  if (isChecked) checkedRows.value.push(role)
-  else checkedRows.value = remove(checkedRows.value, (row) => row.id === role.id)
-}
 
 const openDeleteModal = (role) => {
   selectedRole.value = role

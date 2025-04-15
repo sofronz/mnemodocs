@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\TaxonomyService;
 use App\Builders\Taxonomy\RoleQuery;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AuditResource;
 use App\Services\Taxonomy\RoleService;
 use App\Http\Resources\TaxonomyResource;
 use App\Http\Requests\Taxonomy\RoleRequest;
@@ -70,11 +71,13 @@ class RolesController extends Controller
      */
     public function edit(string $id)
     {
-        $role = app(RoleService::class)->find('id', $id);
+        $role   = app(TaxonomyService::class)->find('id', $id);
+        $audits = $role->audits()->orderBy('created_at', 'DESC')->get();
 
         return Inertia::render('Roles/Form', [
-            'role'   => new TaxonomyResource($role),
-            'isEdit' => true,
+            'role'     => new TaxonomyResource($role),
+            'audits'   => AuditResource::collection($audits),
+            'isEdit'   => true,
         ]);
     }
 

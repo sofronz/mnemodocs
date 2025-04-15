@@ -37,11 +37,11 @@ export default function menuAside(isAdmin) {
       label: 'Categories',
       icon: mdiPalette,
     },
-    {
-      route: 'dashboard',
-      label: 'Media',
-      icon: mdiImageArea,
-    },
+    // {
+    //   route: 'dashboard',
+    //   label: 'Media',
+    //   icon: mdiImageArea,
+    // },
     // Tambahkan menu lainnya jika diperlukan
   ];
 
