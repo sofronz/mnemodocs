@@ -3,6 +3,7 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Taxonomy\RolesController;
 use App\Http\Controllers\Taxonomy\CategoryController;
 
@@ -36,6 +37,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('edit');
         Route::put('/update/{id}', [CategoryController::class, 'update'])->name('update');
         Route::delete('/delete/{id}', [CategoryController::class, 'destroy'])->name('delete');
+    });
+
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('index');
+        Route::get('/create', [UserController::class, 'create'])->name('create');
+        Route::post('/', [UserController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
+        Route::put('/update/{id}', [UserController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('delete');
     });
 });
 

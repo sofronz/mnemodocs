@@ -22,7 +22,7 @@ export default function menuAside(isAdmin) {
     },
     ...(isAdmin ? [
       {
-        route: 'dashboard',
+        route: 'users.index',
         label: 'Users',
         icon: mdiAccountGroup,
       }

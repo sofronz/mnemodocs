@@ -5,10 +5,12 @@ namespace App\Models;
 
 use Illuminate\Support\Str;
 use App\Models\Taxonomy\Role;
+use OwenIt\Auditing\Auditable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 
 /**
  *
@@ -45,10 +47,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User withoutTrashed()
  * @mixin \Eloquent
  */
-class User extends Authenticatable
+class User extends Authenticatable implements ContractsAuditable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes, Auditable;
 
     /**
      * @var string
@@ -124,5 +126,13 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->role->slug == 'roles-administrator' ? true : false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted()
+    {
+        return ! is_null($this->deleted_at) ? true : false;
     }
 }
