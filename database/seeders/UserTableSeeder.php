@@ -2,8 +2,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Services\RoleService;
 use Illuminate\Database\Seeder;
+use App\Services\Taxonomy\RoleService;
 
 class UserTableSeeder extends Seeder
 {

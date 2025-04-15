@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- *
+ * 
  *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \OwenIt\Auditing\Models\Audit> $audits
  * @property-read int|null $audits_count
- * @property-read Media|null $media
+ * @property-read \App\Models\Media\Media|null $media
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $mediable
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Mediable newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Mediable newQuery()

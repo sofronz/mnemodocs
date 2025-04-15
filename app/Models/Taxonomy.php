@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- *
+ * 
  *
  * @property string $id
  * @property string $name
@@ -101,6 +101,7 @@ class Taxonomy extends Base
     protected $fillable = [
         'name',
         'slug',
+        'parent_id',
         'description',
         'status',
         'metadata',

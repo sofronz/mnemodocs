@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 
 /**
- *
+ * 
  *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \OwenIt\Auditing\Models\Audit> $audits
  * @property-read int|null $audits_count
@@ -43,5 +43,13 @@ class Base extends Model implements ContractsAuditable
                 $model->id = (string) Str::uuid();
             }
         });
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted()
+    {
+        return ! is_null($this->deleted_at) ? true : false;
     }
 }
