@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 
-use App\Models\Taxonomy\Role;
+use App\Models\Document;
 use App\Services\Traits\BaseTrait;
 
 class DocumentService
@@ -13,6 +13,6 @@ class DocumentService
      */
     public function __construct()
     {
-        $this->model = new Role();
+        $this->model = new Document();
     }
 }

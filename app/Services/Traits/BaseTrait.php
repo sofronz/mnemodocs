@@ -28,7 +28,7 @@ trait BaseTrait
      */
     public function update(array $data, string $id)
     {
-        $model = $this->model->find('id', $id);
+        $model = $this->find('id', $id);
         $model->update($data);
 
         return $model;

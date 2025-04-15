@@ -14,6 +14,18 @@ defineProps({
     type: String,
     required: true,
   },
+  labelButton: {
+    type: String,
+    required: true,
+  },
+  route: {
+    type: String,
+    required: true,
+  },
+  showButton: {
+    type: Boolean,
+    default: true, // default tetap muncul
+  },
   main: Boolean,
 })
 
@@ -30,6 +42,6 @@ const hasSlot = computed(() => useSlots().default)
       </h1>
     </div>
     <slot v-if="hasSlot" />
-    <BaseButton v-else :icon="mdiCog" color="whiteDark" />
+    <BaseButton v-else-if="showButton" :label="labelButton" :to="route" :icon="icon" color="whiteDark" />
   </section>
 </template>

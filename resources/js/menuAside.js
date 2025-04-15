@@ -16,7 +16,7 @@ export default function menuAside(isAdmin) {
       label: 'Dashboard',
     },
     {
-      route: 'dashboard',
+      route: 'roles.index',
       label: 'Roles',
       icon: mdiViewList,
     },

@@ -3,7 +3,7 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Taxonomy\RolesController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -19,9 +19,14 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::prefix('roles')->name('roles.')->group(function () {
+        Route::get('/', [RolesController::class, 'index'])->name('index');
+        Route::get('/create', [RolesController::class, 'create'])->name('create');
+        Route::post('/', [RolesController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [RolesController::class, 'edit'])->name('edit');
+        Route::put('/update/{id}', [RolesController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [RolesController::class, 'destroy'])->name('delete');
+    });
 });
 
 require __DIR__.'/auth.php';

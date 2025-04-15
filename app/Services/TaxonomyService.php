@@ -1,18 +1,18 @@
 <?php
 namespace App\Services;
 
-use App\Models\Taxonomy\Category;
+use App\Models\Taxonomy;
 use App\Services\Traits\BaseTrait;
 
-class CategoryService
+class TaxonomyService
 {
     use BaseTrait;
 
     /**
-     * CategoryService Constructor
+     * TaxonomyService Constructor
      */
     public function __construct()
     {
-        $this->model = new Category();
+        $this->model = new Taxonomy();
     }
 }

@@ -3,10 +3,10 @@ namespace App\Builders\Taxonomy;
 
 use App\Interfaces\Query;
 use Illuminate\Http\Request;
-use App\Services\CategoryService;
 use App\Builders\Taxonomy\Filters\Sort;
 use App\Builders\Taxonomy\Filters\Search;
 use Illuminate\Database\Eloquent\Builder;
+use App\Services\Taxonomy\CategoryService;
 use App\Builders\Taxonomy\Filters\ParentId;
 
 class CategoryQuery implements Query

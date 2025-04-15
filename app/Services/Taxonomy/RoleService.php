@@ -1,5 +1,5 @@
 <?php
-namespace App\Services;
+namespace App\Services\Taxonomy;
 
 use App\Models\Taxonomy\Role;
 use App\Services\Traits\BaseTrait;

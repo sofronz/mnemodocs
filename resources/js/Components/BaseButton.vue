@@ -5,42 +5,18 @@ import { getButtonColor } from '@/colors.js'
 import BaseIcon from '@/Components/BaseIcon.vue'
 
 const props = defineProps({
-  label: {
-    type: [String, Number],
-    default: null,
-  },
-  icon: {
-    type: String,
-    default: null,
-  },
-  iconSize: {
-    type: [String, Number],
-    default: null,
-  },
-  href: {
-    type: String,
-    default: null,
-  },
-  target: {
-    type: String,
-    default: null,
-  },
-  to: {
-    type: [String, Object],
-    default: null,
-  },
-  type: {
-    type: String,
-    default: null,
-  },
+  label: [String, Number],
+  icon: String,
+  iconSize: [String, Number],
+  href: String,
+  target: String,
+  to: [String, Object],
+  type: String,
   color: {
     type: String,
     default: 'white',
   },
-  as: {
-    type: String,
-    default: null,
-  },
+  as: String,
   small: Boolean,
   outline: Boolean,
   active: Boolean,
@@ -48,29 +24,15 @@ const props = defineProps({
   roundedFull: Boolean,
 })
 
+const emit = defineEmits(['click']) // <-- Penting: biar bisa emit ke luar
+
 const is = computed(() => {
-  if (props.as) {
-    return props.as
-  }
-
-  if (props.to) {
-    return router
-  }
-
-  if (props.href) {
-    return 'a'
-  }
-
-  return 'button'
+  if (props.type === 'submit' || props.type === 'reset') return 'button'
+  if (props.as) return props.as
+  return 'a'
 })
 
-const computedType = computed(() => {
-  if (is.value === 'button') {
-    return props.type ?? 'button'
-  }
-
-  return null
-})
+const computedType = computed(() => (is.value === 'button' ? props.type ?? 'button' : null))
 
 const labelClass = computed(() => (props.small && props.icon ? 'px-1' : 'px-2'))
 
@@ -104,19 +66,34 @@ const componentClass = computed(() => {
 
   return base
 })
+
+function handleClick(e) {
+  if (props.disabled) {
+    e.preventDefault()
+    return
+  }
+
+  if (props.to && computedType.value !== 'submit' && computedType.value !== 'reset') {
+    e.preventDefault()
+    router.visit(props.to)
+  }
+
+  emit('click', e) // <-- Emit ke luar, biar @click di luar tetap kepanggil
+}
 </script>
 
 <template>
   <component
     :is="is"
     :class="componentClass"
-    :href="href"
+    :href="href || (typeof to === 'string' ? to : null)"
     :type="computedType"
-    :to="to"
     :target="target"
     :disabled="disabled"
+    @click="handleClick"
+    v-bind="$attrs"
   >
     <BaseIcon v-if="icon" :path="icon" :size="iconSize" />
-    <span v-if="label" :class="labelClass">{{ label }}</span>
+    <span v-if="label" :class="labelClass" v-html="label" />
   </component>
 </template>
