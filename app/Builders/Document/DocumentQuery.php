@@ -3,6 +3,7 @@ namespace App\Builders\Document;
 
 use App\Interfaces\Query;
 use Illuminate\Http\Request;
+use App\Builders\Filters\Trashed;
 use App\Services\DocumentService;
 use App\Builders\Document\Filters\Sort;
 use App\Builders\Document\Filters\Search;
@@ -27,6 +28,10 @@ class DocumentQuery implements Query
 
         if ($request->has('sort')) {
             $query = Sort::apply($query, $request->get('sort'));
+        }
+
+        if ($request->has('trashed')) {
+            $query = Trashed::apply($query, $request->get('trashed'));
         }
 
         return $query;

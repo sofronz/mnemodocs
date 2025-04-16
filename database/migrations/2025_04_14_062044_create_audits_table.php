@@ -20,7 +20,8 @@ return new class extends Migration {
             $table->string($morphPrefix . '_type')->nullable();
             $table->uuid($morphPrefix . '_id')->nullable();
             $table->string('event');
-            $table->morphs('auditable');
+            $table->string('auditable_type');
+            $table->uuid('auditable_id');
             $table->text('old_values')->nullable();
             $table->text('new_values')->nullable();
             $table->text('url')->nullable();
