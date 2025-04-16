@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Jobs\ExportDataJob;
 use Illuminate\Http\Request;
+use App\Services\UserService;
+use App\Services\DocumentService;
 use App\Services\DataExportService;
+use App\Services\Taxonomy\RoleService;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\DataExportResource;
+use App\Services\Taxonomy\CategoryService;
 
 class DashboardController extends Controller
 {
@@ -38,6 +42,12 @@ class DashboardController extends Controller
 
         return Inertia::render('Dashboard', [
             'dataExports' => DataExportResource::collection($data),
+            'counter'     => [
+                'categories' => app(CategoryService::class)->builder()->count(),
+                'roles'      => app(RoleService::class)->builder()->count(),
+                'users'      => app(UserService::class)->builder()->count(),
+                'documents'  => app(DocumentService::class)->builder()->count(),
+            ],
         ]);
     }
 

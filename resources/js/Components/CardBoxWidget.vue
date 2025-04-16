@@ -4,7 +4,7 @@ import CardBox from '@/Components/CardBox.vue'
 import NumberDynamic from '@/Components/NumberDynamic.vue'
 import BaseIcon from '@/Components/BaseIcon.vue'
 import BaseLevel from '@/Components/BaseLevel.vue'
-import PillTagTrend from '@/Components/PillTagTrend.vue'
+import PillTag from '@/Components/PillTag.vue'
 import BaseButton from '@/Components/BaseButton.vue'
 
 defineProps({
@@ -32,6 +32,10 @@ defineProps({
     type: String,
     default: null,
   },
+  iconColor: {
+    type: String,
+    default: null,
+  },
   trend: {
     type: String,
     default: null,
@@ -40,14 +44,18 @@ defineProps({
     type: String,
     default: null,
   },
+  showButton: {
+    type: Boolean,
+    default: true, // default tetap muncul
+  },
 })
 </script>
 
 <template>
   <CardBox>
     <BaseLevel v-if="trend" class="mb-3" mobile>
-      <PillTagTrend :trend="trend" :trend-type="trendType" small />
-      <BaseButton :icon="mdiCog" icon-w="w-4" icon-h="h-4" color="lightDark" small />
+      <PillTag :label="trend" :color="color" :icon="icon" />
+      <BaseButton v-if="showButton" :icon="mdiCog" icon-w="w-4" icon-h="h-4" color="lightDark" small />
     </BaseLevel>
     <BaseLevel mobile>
       <div>
@@ -58,7 +66,7 @@ defineProps({
           <NumberDynamic :value="number" :prefix="prefix" :suffix="suffix" />
         </h1>
       </div>
-      <BaseIcon v-if="icon" :path="icon" size="48" w="" h="h-16" :class="color" />
+      <BaseIcon v-if="icon" :path="icon" size="48" w="" h="h-16" :class="iconColor" />
     </BaseLevel>
   </CardBox>
 </template>
