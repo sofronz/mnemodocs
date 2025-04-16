@@ -18,7 +18,7 @@ class RolesController extends Controller
      *
      * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return \Inertia\Response
      */
     public function index(Request $request)
     {
@@ -28,9 +28,11 @@ class RolesController extends Controller
             'roles' => TaxonomyResource::collection($roles),
         ]);
     }
-
+    
     /**
      * Show the form for creating a new resource.
+     * 
+     * @return \Inertia\Response
      */
     public function create()
     {
@@ -45,7 +47,7 @@ class RolesController extends Controller
      *
      * @param RoleRequest $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(RoleRequest $request)
     {
@@ -67,7 +69,7 @@ class RolesController extends Controller
      *
      * @param string $id
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return \Inertia\Response
      */
     public function edit(string $id)
     {
@@ -87,7 +89,7 @@ class RolesController extends Controller
      * @param RoleRequest $request
      * @param string $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(RoleRequest $request, string $id)
     {
@@ -102,7 +104,7 @@ class RolesController extends Controller
      *
      * @param string $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(string $id)
     {

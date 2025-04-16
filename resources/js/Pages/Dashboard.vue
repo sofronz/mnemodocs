@@ -10,6 +10,7 @@ import CardBoxTransaction from '@/Components/CardBoxTransaction.vue'
 import CardBoxClient from '@/Components/CardBoxClient.vue'
 import LayoutAuthenticated from '@/Layouts/LayoutAuthenticated.vue'
 import SectionTitleLineWithButton from '@/Components/SectionTitleLineWithButton.vue'
+import { mdiMonitor } from '@mdi/js'
 
 const chartData = ref(null)
 
@@ -30,12 +31,11 @@ const transactionBarItems = computed(() => mainStore.history)
 
 <template>
     <LayoutAuthenticated>
+    
         <Head title="Dashboard" />
-        
+    
         <SectionMain>
-            <SectionTitleLineWithButton :icon="mdiChartTimelineVariant" title="Overview" main>
-                
-            </SectionTitleLineWithButton>
+            <SectionTitleLineWithButton :icon="mdiMonitor" title="Dashboard" :show-button="false" main />
     
             <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">
                 <CardBoxWidget trend="12%" trend-type="up" color="text-emerald-500" :icon="mdiAccountMultiple" :number="512"

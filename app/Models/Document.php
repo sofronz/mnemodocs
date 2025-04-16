@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- *
+ * 
  *
  * @property string $id
  * @property string $title
@@ -22,8 +22,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \OwenIt\Auditing\Models\Audit> $audits
  * @property-read int|null $audits_count
  * @property-read Category $category
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Media\Mediable> $medias
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Media\Mediable> $medias
  * @property-read int|null $medias_count
+ * @property-read \App\Models\User $uploaded
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document onlyTrashed()

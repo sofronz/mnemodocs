@@ -6,7 +6,7 @@ use App\Models\Scopes\CategoryScope;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *
+ * 
  *
  * @property string $id
  * @property string $name

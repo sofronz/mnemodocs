@@ -17,7 +17,7 @@ class UserController extends Controller
      *
      * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return \Inertia\Response
      */
     public function index(Request $request)
     {
@@ -30,6 +30,8 @@ class UserController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * 
+     * @return \Inertia\Response
      */
     public function create()
     {
@@ -47,7 +49,7 @@ class UserController extends Controller
      *
      * @param UserRequest $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(UserRequest $request)
     {
@@ -69,7 +71,7 @@ class UserController extends Controller
      *
      * @param string $id
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return \Inertia\Response
      */
     public function edit(string $id)
     {
@@ -91,7 +93,7 @@ class UserController extends Controller
      * @param UserRequest $request
      * @param string $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UserRequest $request, string $id)
     {
@@ -106,7 +108,7 @@ class UserController extends Controller
      *
      * @param string $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(string $id)
     {

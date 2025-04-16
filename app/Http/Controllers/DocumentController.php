@@ -18,7 +18,7 @@ class DocumentController extends Controller
      *
      * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return \Inertia\Response
      */
     public function index(Request $request)
     {
@@ -28,9 +28,11 @@ class DocumentController extends Controller
             'documents' => DocumentResource::collection($documents),
         ]);
     }
-
+    
     /**
      * Show the form for creating a new resource.
+     * 
+     * @return \Inertia\Response
      */
     public function create()
     {
@@ -46,9 +48,9 @@ class DocumentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CategoryRequest $request
+     * @param DocumentRequest $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(DocumentRequest $request)
     {
@@ -75,7 +77,7 @@ class DocumentController extends Controller
      *
      * @param string $id
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return \Inertia\Response
      */
     public function edit(string $id)
     {
@@ -94,10 +96,10 @@ class DocumentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CategoryRequest $request
+     * @param DocumentRequest $request
      * @param string $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(DocumentRequest $request, string $id)
     {
@@ -119,7 +121,7 @@ class DocumentController extends Controller
      *
      * @param string $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(string $id)
     {

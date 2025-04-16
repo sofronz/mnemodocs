@@ -18,7 +18,7 @@ trait HasMedia
     }
 
     /**
-     * @return Media
+     * @return \App\Models\Media\Media
      */
     public function getMedia()
     {
@@ -40,7 +40,7 @@ trait HasMedia
      *
      * @param Media $media
      *
-     * @return Model
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function attachMedia(Media $media)
     {
@@ -52,7 +52,7 @@ trait HasMedia
     /**
      * Detach media from this model
      *
-     * @return Model
+     * @return \Illuminate\Database\Eloquent\Model|null
      */
     public function detachMedia()
     {

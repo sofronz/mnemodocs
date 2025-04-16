@@ -18,7 +18,7 @@ class CategoryController extends Controller
      *
      * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return \Inertia\Response
      */
     public function index(Request $request)
     {
@@ -31,6 +31,8 @@ class CategoryController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * 
+     * @return \Inertia\Response
      */
     public function create()
     {
@@ -45,7 +47,7 @@ class CategoryController extends Controller
      *
      * @param CategoryRequest $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(CategoryRequest $request)
     {
@@ -67,7 +69,7 @@ class CategoryController extends Controller
      *
      * @param string $id
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return \Inertia\Response
      */
     public function edit(string $id)
     {
@@ -87,7 +89,7 @@ class CategoryController extends Controller
      * @param CategoryRequest $request
      * @param string $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(CategoryRequest $request, string $id)
     {
@@ -102,7 +104,7 @@ class CategoryController extends Controller
      *
      * @param string $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(string $id)
     {
