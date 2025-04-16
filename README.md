@@ -1,66 +1,95 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📄 Mnemodocs
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Mnemodocs** is a personal project built to explore the integration of Vue.js with Inertia in a Laravel application. This project is designed around a simple document management use case and includes features focused on learning and experimentation with:
 
-## About Laravel
+- Laravel queue and job processing
+- Exporting data to Excel
+- Frontend management using Vue.js
+- Integration with Laravel Audit for activity logging
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Document & Category Management**: Upload, manage, and organize documents into categories.
+- **User & Role Management**: Manage users and assign roles with specific access permissions.
+- **Export to Excel**: Export data from various modules into Excel format.
+- **Filtering**: Apply filters in each module for easier data navigation.
+- **Activity Logging**: Track user actions and changes in each module for better auditing.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🛠️ Technologies Used
 
-## Learning Laravel
+- **Backend**: Laravel 12
+- **Frontend**: Vue.js 3 with Inertia.js
+- **Database**: MySQL
+- **Authentication**: Laravel Sanctum
+- **Excel Export**: Laravel Excel (maatwebsite/excel)
+- **UI Framework**: Tailwind CSS
+- **UI Theme**: [Admin One Vue Tailwind](https://github.com/justboil/admin-one-vue-tailwind)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 🔧 Helpful Libraries
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **[maatwebsite/excel](https://github.com/Maatwebsite/Laravel-Excel)** – For exporting data to Excel files.
+- **[owen-it/laravel-auditing](https://github.com/owen-it/laravel-auditing)** – To track model changes and user activity.
+- **[kalnoy/nestedset](https://github.com/lazychaser/laravel-nestedset)** – For handling hierarchical data structures.
+- **[barryvdh/laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper)** – For generating IDE helper files and better code completion.
+- **[friendsofphp/php-cs-fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)** – For automatic PHP code formatting and consistency.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 📦 Installation
 
-## Laravel Sponsors
+1. **Clone repositori:**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+   ```bash
+   git clone https://github.com/sofronz/mnemodocs.git
+   cd mnemodocs
+   ```
 
-### Premium Partners
+2. **Install backend dependencies:**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+   ```bash
+   composer install
+   ```
 
-## Contributing
+3. **Install frontend dependencies:**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   ```bash
+   npm install
+   ```
 
-## Code of Conduct
+4. **Copy the .env file and configure:**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-## Security Vulnerabilities
+5. **Run database migrations and seed:**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+   ```bash
+   php artisan migrate --seed
+   ```
 
-## License
+6. **Start the development server:**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+   ```bash
+   php artisan serve
+   npm run dev
+   ```
+
+## 🔐 Demo Accounts
+
+- **Admin**
+  - Email: The admin email is randomly generated from the database.
+  - Password: `password`
+
+- **User**
+  - Email: The user email is randomly generated from the database.
+  - Password: `password`
+
+> Note: Both **Admin** and **User** accounts have dynamically generated email addresses from the database, so the email addresses may vary on different installations or setups. The default password for both Admin and User accounts is `password`.
+
+## 📃 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## 📫 Contact
+
+For questions or suggestions, feel free to contact [sofronz](https://github.com/sofronz).
