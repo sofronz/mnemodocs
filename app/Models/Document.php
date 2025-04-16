@@ -77,4 +77,12 @@ class Document extends Base
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function uploaded()
+    {
+        return $this->belongsTo(User::class, 'uploaded_by', 'id');
+    }
 }

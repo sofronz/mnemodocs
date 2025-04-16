@@ -12,7 +12,8 @@ return new class extends Migration {
     {
         Schema::create('md_mediables', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->morphs('mediable');
+            $table->string('mediable_type');
+            $table->uuid('mediable_id');
             $table->uuid('media_id');
             $table->json('metadata')->nullable();
 

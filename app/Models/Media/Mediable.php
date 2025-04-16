@@ -2,7 +2,6 @@
 namespace App\Models\Media;
 
 use App\Models\Base;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -22,12 +21,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Mediable extends Base
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
     
     /**
      * @var string
      */
-    protected $table = 'inv_mediables';
+    protected $table = 'md_mediables';
 
     /**
      * @var array

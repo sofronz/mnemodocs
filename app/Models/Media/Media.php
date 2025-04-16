@@ -25,7 +25,7 @@ class Media extends Base
     /**
      * @var string
      */
-    protected $table = 'inv_media';
+    protected $table = 'md_media';
 
     /**
      * @var array
