@@ -31,29 +31,24 @@ class DataExportResource extends JsonResource
      */
     private function status()
     {
-        $before = app(DataExportService::class)->before($this['type'], Auth::user()->id);
-        $after  = app(DataExportService::class)->after($this['type'], Auth::user()->id);
+        $before = app(DataExportService::class)->before($this['type'], Auth::id());
+        $after  = app(DataExportService::class)->after($this['type'], Auth::id());
+
+        $status = 'ERROR';
+        $id     = null;
 
         if (is_null($before) && is_null($after)) {
-            return [
-                'status' => 'NONE',
-                'id'     => 'null',
-            ];
+            $status = 'NONE';
         } elseif (! is_null($before) && is_null($after)) {
-            return [
-                'status' => 'PROGRESS',
-                'id'     => 'null',
-            ];
+            $status = 'PROGRESS';
         } elseif (is_null($before) && ! is_null($after)) {
-            return [
-                'status' => 'DONE',
-                'id'     => $after->id,
-            ];
+            $status = 'DONE';
+            $id     = $after->id;
         }
 
         return [
-            'status' => 'ERROR',
-            'id'     => 'null',
+            'status' => $status,
+            'id'     => $id ?? 'null',
         ];
     }
 }

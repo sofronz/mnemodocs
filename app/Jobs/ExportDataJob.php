@@ -1,7 +1,10 @@
 <?php
 namespace App\Jobs;
 
+use App\Exports\RolesExport;
 use App\Exports\UsersExport;
+use App\Exports\DocumentsExport;
+use App\Exports\CategoriesExport;
 use App\Services\DataExportService;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Foundation\Queue\Queueable;
@@ -36,11 +39,18 @@ class ExportDataJob implements ShouldQueue
     public function handle(): void
     {
         $fileName     = $this->type . '_exported_' . time() . '.xlsx';
-        $relativePath = 'exports/' . $fileName; // opsional bisa bikin folder "exports"
-        Excel::store(new UsersExport, $relativePath, 'public');
+        $relativePath = 'exports/' . $fileName;
+        
+        $exportClass = match ($this->type) {
+            'user'     => new UsersExport,
+            'role'     => new RolesExport,
+            'category' => new CategoriesExport,
+            'document' => new DocumentsExport,
+            default    => null,
+        };
 
-        if ($this->type == 'user') {
-            Excel::store(new UsersExport, $relativePath, 'public');
+        if ($exportClass) {
+            Excel::store($exportClass, $relativePath, 'public');
 
             app(DataExportService::class)->before($this->type, $this->user_id)->update([
                 'file_path' => $relativePath,

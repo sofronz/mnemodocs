@@ -32,7 +32,7 @@ class DashboardController extends Controller
             ],
             [
                 'name' => 'Roles',
-                'type' => 'roles',
+                'type' => 'role',
             ],
         ]);
 
