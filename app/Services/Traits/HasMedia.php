@@ -18,7 +18,7 @@ trait HasMedia
     }
 
     /**
-     * @return \App\Models\Media\Media
+     * @return Media
      */
     public function getMedia()
     {

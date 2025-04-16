@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Taxonomy\RolesController;
 use App\Http\Controllers\Taxonomy\CategoryController;
 
@@ -18,9 +19,11 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('index');
+        Route::post('/', [DashboardController::class, 'store'])->name('request');
+        Route::get('/download/{id}', [DashboardController::class, 'download'])->name('download');
+    });
 
     Route::prefix('roles')->name('roles.')->group(function () {
         Route::get('/', [RolesController::class, 'index'])->name('index');

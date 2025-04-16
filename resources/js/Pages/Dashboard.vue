@@ -8,9 +8,12 @@ import CardBoxWidget from '@/Components/CardBoxWidget.vue'
 import BaseButton from '@/Components/BaseButton.vue'
 import CardBoxTransaction from '@/Components/CardBoxTransaction.vue'
 import CardBoxClient from '@/Components/CardBoxClient.vue'
+import TableExports from '@/Components/TableExports.vue'
 import LayoutAuthenticated from '@/Layouts/LayoutAuthenticated.vue'
 import SectionTitleLineWithButton from '@/Components/SectionTitleLineWithButton.vue'
 import { mdiMonitor } from '@mdi/js'
+import FlashMessage from '@/Components/FlashMessage.vue'
+import CardBox from '@/Components/CardBox.vue'
 
 const chartData = ref(null)
 
@@ -31,10 +34,11 @@ const transactionBarItems = computed(() => mainStore.history)
 
 <template>
     <LayoutAuthenticated>
-    
         <Head title="Dashboard" />
     
         <SectionMain>
+            <FlashMessage />
+
             <SectionTitleLineWithButton :icon="mdiMonitor" title="Dashboard" :show-button="false" main />
     
             <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">
@@ -46,17 +50,9 @@ const transactionBarItems = computed(() => mainStore.history)
                     :number="256" suffix="%" label="Performance" />
             </div>
     
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                <div class="flex flex-col justify-between">
-                    <CardBoxTransaction v-for="(transaction, index) in transactionBarItems" :key="index"
-                        :amount="transaction.amount" :date="transaction.date" :business="transaction.business"
-                        :type="transaction.type" :name="transaction.name" :account="transaction.account" />
-                </div>
-                <div class="flex flex-col justify-between">
-                    <CardBoxClient v-for="client in clientBarItems" :key="client.id" :name="client.name"
-                        :login="client.login" :date="client.created" :progress="client.progress" />
-                </div>
-            </div>
+            <CardBox class="mt-6 mb-6" has-table>
+                <TableExports />
+            </CardBox>
         </SectionMain>
     </LayoutAuthenticated>
 </template>

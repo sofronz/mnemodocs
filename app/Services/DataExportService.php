@@ -18,33 +18,33 @@ class DataExportService
 
     /**
      * @param string $type
-     * @param int $user_id
+     * @param string $user_id
      *
      * @return bool
      */
-    public function detach(string $type, int $user_id)
+    public function detach(string $type, string $user_id)
     {
         return $this->builder()->where('type', $type)->where('exported_by', $user_id)->delete();
     }
 
     /**
      * @param string $type
-     * @param int $user_id
+     * @param string $user_id
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function before(string $type, int $user_id)
+    public function before(string $type, string $user_id)
     {
         return $this->builder()->where('type', $type)->whereNull('file_path')->where('exported_by', $user_id)->first();
     }
 
     /**
      * @param string $type
-     * @param int $user_id
+     * @param string $user_id
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function after(string $type, int $user_id)
+    public function after(string $type, string $user_id)
     {
         return $this->builder()->where('type', $type)->whereNotNull('file_path')->where('exported_by', $user_id)->first();
     }

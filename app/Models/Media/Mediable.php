@@ -5,7 +5,7 @@ use App\Models\Base;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $mediable_type
@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \OwenIt\Auditing\Models\Audit> $audits
  * @property-read int|null $audits_count
- * @property-read \App\Models\Media\Media $media
+ * @property-read Media $media
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $mediable
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Mediable newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Mediable newQuery()

@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * 
+ *
  *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \OwenIt\Auditing\Models\Audit> $audits
  * @property-read int|null $audits_count
@@ -32,6 +32,7 @@ class DataExport extends Base
     protected $fillable = [
         'type',
         'file_path',
+        'exported_by',
         'metadata',
     ];
 

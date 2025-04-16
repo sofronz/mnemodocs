@@ -11,7 +11,7 @@ import {
 export default function menuAside(isAdmin) {
   const menuItems = [
     {
-      route: 'dashboard',
+      route: 'dashboard.index',
       icon: mdiMonitor,
       label: 'Dashboard',
     },

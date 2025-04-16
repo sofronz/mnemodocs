@@ -4,7 +4,6 @@ namespace App\Jobs;
 use App\Exports\UsersExport;
 use App\Services\DataExportService;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -18,14 +17,14 @@ class ExportDataJob implements ShouldQueue
     protected string $type;
 
     /**
-     * @var int
+     * @var string
      */
-    protected int $user_id;
+    protected string $user_id;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(string $type, int $user_id)
+    public function __construct(string $type, string $user_id)
     {
         $this->type    = $type;
         $this->user_id = $user_id;
@@ -36,14 +35,15 @@ class ExportDataJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $fileName = $this->type . '_exported_' . time() . '.xlsx';
-        $filePath = Storage::disk('public')->path($fileName);
+        $fileName     = $this->type . '_exported_' . time() . '.xlsx';
+        $relativePath = 'exports/' . $fileName; // opsional bisa bikin folder "exports"
+        Excel::store(new UsersExport, $relativePath, 'public');
 
         if ($this->type == 'user') {
-            Excel::store(new UsersExport, $filePath, 'public');
+            Excel::store(new UsersExport, $relativePath, 'public');
 
             app(DataExportService::class)->before($this->type, $this->user_id)->update([
-                'file_path' => $filePath,
+                'file_path' => $relativePath,
             ]);
         }
     }

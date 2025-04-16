@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $name

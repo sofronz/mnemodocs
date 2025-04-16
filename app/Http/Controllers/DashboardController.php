@@ -17,7 +17,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $data = [
+        $data = collect([
             [
                 'name' => 'Categories',
                 'type' => 'category',
@@ -34,10 +34,10 @@ class DashboardController extends Controller
                 'name' => 'Roles',
                 'type' => 'roles',
             ],
-        ];
+        ]);
 
         return Inertia::render('Dashboard', [
-            'exports' => DataExportResource::collection($data),
+            'dataExports' => DataExportResource::collection($data),
         ]);
     }
 
@@ -60,24 +60,34 @@ class DashboardController extends Controller
             'exported_by' => $request->user()->id,
         ]);
 
-        ExportDataJob::dispatch();
+        ExportDataJob::dispatch($request->type, $request->user()->id);
 
         return redirect()->back()->with('success', 'Export process still in progress..');
     }
 
     /**
-     * @param string $filename
+     * @param string $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function download(string $filename)
+    public function download(string $id)
     {
-        $filePath = storage_path('app/public/' . $filename);
+        $data = app(DataExportService::class)->find('id', $id);
 
+        // Pastikan file ada di disk public
+        if (! Storage::disk('public')->exists($data->file_path)) {
+            abort(404, 'File not found.');
+        }
+
+        // Ambil path file yang lengkap di disk public
+        $filePath = storage_path('app/public/' . $data->file_path);
+
+        // Cek apakah file benar-benar ada dan dapat diakses
         if (! file_exists($filePath)) {
             abort(404, 'File not found.');
         }
 
+        // Gunakan response()->download untuk memulai unduhan
         return response()->download($filePath);
     }
 }

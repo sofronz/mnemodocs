@@ -18,10 +18,11 @@ class DataExportResource extends JsonResource
         $status = $this->status();
 
         return [
-            'name'   => $this->name,
-            'type'   => $this->type,
-            'status' => $status['status'],
-            'file'   => $status['file'],
+            'id'       => $status['id'],
+            'name'     => $this['name'],
+            'type'     => $this['type'],
+            'status'   => $status['status'],
+            'download' => route('dashboard.download', ['id' => $status['id']]),
         ];
     }
 
@@ -30,29 +31,29 @@ class DataExportResource extends JsonResource
      */
     private function status()
     {
-        $before = app(DataExportService::class)->before($this->type, Auth::user()->id);
-        $after  = app(DataExportService::class)->after($this->type, Auth::user()->id);
+        $before = app(DataExportService::class)->before($this['type'], Auth::user()->id);
+        $after  = app(DataExportService::class)->after($this['type'], Auth::user()->id);
 
         if (is_null($before) && is_null($after)) {
             return [
                 'status' => 'NONE',
-                'file'   => null,
+                'id'     => 'null',
             ];
         } elseif (! is_null($before) && is_null($after)) {
             return [
                 'status' => 'PROGRESS',
-                'file'   => null,
+                'id'     => 'null',
             ];
         } elseif (is_null($before) && ! is_null($after)) {
             return [
                 'status' => 'DONE',
-                'file'   => $after->file_path,
+                'id'     => $after->id,
             ];
         }
 
         return [
             'status' => 'ERROR',
-            'file'   => null,
+            'id'     => 'null',
         ];
     }
 }

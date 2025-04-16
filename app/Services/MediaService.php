@@ -5,6 +5,7 @@ use App\Models\Media\Media;
 use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
 use App\Services\Traits\BaseTrait;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class MediaService
@@ -22,9 +23,9 @@ class MediaService
     /**
      * @param UploadedFile $file
      *
-     * @return Media
+     * @return Model
      */
-    public function upload(UploadedFile $file): Media
+    public function upload(UploadedFile $file): Model
     {
         $this->validateFile($file);
 
@@ -79,9 +80,9 @@ class MediaService
      * @param UploadedFile $file
      * @param string $path
      *
-     * @return Media
+     * @return Model
      */
-    protected function saveMediaRecord(UploadedFile $file, string $path): Media
+    protected function saveMediaRecord(UploadedFile $file, string $path): Model
     {
         return $this->store([
             'file_name' => $file->getClientOriginalName(),
