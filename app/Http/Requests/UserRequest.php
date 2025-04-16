@@ -27,17 +27,15 @@ class UserRequest extends FormRequest
             'password' => 'required',
             'role'     => 'required',
         ];
-
-        // Jika method update
+        
         if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
-            // Ambil ID dari route (pastikan parameternya `users/{user}`)
             $userId = $this->route('id') ?? $this->route('user');
 
             $rules['email']    = 'unique:users,email,' . $userId;
             $rules['password'] = 'nullable';
         } else {
             $rules['email']    = 'unique:users,email';
-            $rules['password'] = 'required'; // Password required saat create
+            $rules['password'] = 'required';
         }
 
         return $rules;
@@ -49,11 +47,17 @@ class UserRequest extends FormRequest
     public function fieldInputs()
     {
         if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
-            return [
+            $arr = [
                 'name'     => $this->name,
                 'email'    => $this->email,
                 'role_id'  => $this->role,
             ];
+
+            if (! is_null($this->password)) {
+                $arr['password'] = Hash::make($this->password);
+            }
+
+            return $arr;
         }
 
         return [

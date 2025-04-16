@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Storage;
 class MediaService
 {
     use BaseTrait;
+
+    /**
+     * MediaService Constructor
+     */
+    public function __construct()
+    {
+        $this->model = new Media();
+    }
     
     /**
      * @param UploadedFile $file

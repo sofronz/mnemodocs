@@ -24,7 +24,7 @@ trait BaseTrait
      * @param array $data
      * @param string $id
      *
-     * @return bool
+     * @return Model
      */
     public function update(array $data, string $id)
     {

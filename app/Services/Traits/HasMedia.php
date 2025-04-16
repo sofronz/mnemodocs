@@ -3,6 +3,7 @@ namespace App\Services\Traits;
 
 use App\Models\Media\Media;
 use App\Models\Media\Mediable;
+use Illuminate\Support\Facades\Storage;
 
 trait HasMedia
 {
@@ -14,6 +15,24 @@ trait HasMedia
     public function medias()
     {
         return $this->morphMany(Mediable::class, 'mediable');
+    }
+
+    /**
+     * @return Media
+     */
+    public function getMedia()
+    {
+        return $this->medias()->first()?->media;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMediaUrl()
+    {
+        $media = $this->getMedia();
+
+        return asset(Storage::url($media?->file_path));
     }
 
     /**
@@ -33,12 +52,14 @@ trait HasMedia
     /**
      * Detach media from this model
      *
-     * @param Media $media
-     *
      * @return Model
      */
-    public function detachMedia(Media $media)
+    public function detachMedia()
     {
-        return $this->medias()->where('id', $media->id)->delete();
+        if ($this->medias->isNotEmpty()) {
+            return $this->medias()->delete();
+        }
+
+        return null;
     }
 }

@@ -28,7 +28,7 @@ export default function menuAside(isAdmin) {
       }
     ] : []),
     {
-      route: 'dashboard',
+      route: 'documents.index',
       label: 'Documents',
       icon: mdiFileDocumentCheckOutline,
     },
