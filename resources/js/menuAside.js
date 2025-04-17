@@ -15,17 +15,17 @@ export default function menuAside(isAdmin) {
       icon: mdiMonitor,
       label: 'Dashboard',
     },
-    {
-      route: 'roles.index',
-      label: 'Roles',
-      icon: mdiViewList,
-    },
     ...(isAdmin ? [
       {
         route: 'users.index',
         label: 'Users',
         icon: mdiAccountGroup,
-      }
+      },
+      {
+        route: 'roles.index',
+        label: 'Roles',
+        icon: mdiViewList,
+      },
     ] : []),
     {
       route: 'documents.index',

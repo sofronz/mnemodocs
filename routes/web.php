@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/download/{id}', [DashboardController::class, 'download'])->name('download');
     });
 
-    Route::prefix('roles')->name('roles.')->group(function () {
+    Route::prefix('roles')->name('roles.')->middleware(AdminMiddleware::class)->group(function () {
         Route::get('/', [RolesController::class, 'index'])->name('index');
         Route::get('/create', [RolesController::class, 'create'])->name('create');
         Route::post('/', [RolesController::class, 'store'])->name('store');
